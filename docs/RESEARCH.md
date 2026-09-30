@@ -1,6 +1,6 @@
 # Research and differentiation review
 
-Last reviewed: 30 September 2026. This is a product-landscape review, not a legal novelty, patent, or trademark opinion.
+Last reviewed: 1 October 2026. This is a product-landscape review, not a legal novelty, patent, or trademark opinion.
 
 ## Conclusion
 
@@ -31,6 +31,9 @@ The following comparison is based on public documentation available at the revie
 | [Hydra](https://github.com/enchanter-ai/hydra) | Real-time interception of poisoned configuration and destructive commands | Runtime/session defense; HostLatch addresses post-session review and promotion. |
 | [cplt](https://github.com/navikt/cplt) | Kernel-level sandbox with Git/GitHub guards and policy controls | Isolation layer rather than an offline change-set promotion gate. |
 | [SkillGuard](https://github.com/RudrenduPaul/skillguard) | Security scanning for third-party agent skills and their bundled hooks/scripts | Specialized skill supply-chain scanner; complementary scope. |
+| [SkilLock](https://github.com/skills-lock/skil-lock) | Capability-drift lockfiles and approval for installed Claude/Codex skills | Shows that generic capability-delta gating is already an active category. |
+| [Agents Shipgate](https://github.com/ThreeMoonsLab/agents-shipgate) | Deterministic capability-delta merge gate for MCP, OpenAPI, and SDK tool surfaces | Adjacent proof that capability-delta reporting alone is not a distinct HostLatch wedge. |
+| [Proof-Carrying Operations](https://github.com/aharwelik/proof-carrying-ops) | Change receipts covering identity, blast radius, rollback, and verification | Generic proof receipts are also not a unique HostLatch claim. |
 
 HostLatch should interoperate with these categories, not pretend they do not exist.
 
@@ -52,6 +55,9 @@ Items 1–4 distinguish the explanation and attribution model. Item 5 turns the 
 - [AgentSentry: Counterfactual Detection of Prompt Injection](https://arxiv.org/abs/2602.22724)
 - [AttriGuard: Attribution-Guided Defense for Agents](https://arxiv.org/abs/2603.10749)
 - [Apache Magpie secure coding-agent sandbox RFC](https://cwiki.apache.org/confluence/display/MAGPIE/Design+and+Implementation+of+a+Secure+Coding+Agent+Sandbox)
+- [Agent Approval Laundering: Transitive Effects Beyond the Approved Invocation](https://arxiv.org/abs/2609.28586)
+
+The approval-laundering study establishes important prior work for transitive-effect prediction and referenced-script analysis. After reviewing it and the capability-delta projects above, HostLatch rejected generic proof receipts as its next headline. The narrower [ShadowReach plan](SHADOWREACH_PLAN.md) instead tests Git-delta-aware reverse reachability from an agent-changed leaf to an unchanged activation root, with the result bound to quarantine-first promotion. This remains a hypothesis until a reproducible comparison is published.
 
 ## Naming review
 

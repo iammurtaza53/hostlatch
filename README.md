@@ -41,7 +41,7 @@ Three mechanisms support that decision:
 2. **Activation graphs** explain each path as artifact → trusted consumer → future trigger → host effect.
 3. **Quarantine-first promotion** splits ordinary changes from activation-bearing changes into an inert, hash-bound bundle.
 
-Several projects scan AI configuration or sandbox live agents. HostLatch complements them by focusing on the post-agent handoff and promotion workflow. See the [research comparison](docs/RESEARCH.md).
+Several projects scan AI configuration or sandbox live agents. HostLatch complements them by focusing on the post-agent handoff and promotion workflow. See the [research comparison](docs/RESEARCH.md) and the reviewed [ShadowReach plan](docs/SHADOWREACH_PLAN.md) for the next change-aware reachability experiment.
 
 ## Try it in 60 seconds
 
@@ -163,7 +163,7 @@ Read the full [threat model](docs/THREAT_MODEL.md). Please report vulnerabilitie
 
 ## Project status
 
-HostLatch is an **experimental v0.2 public beta**. The scanner, activation manifest, quarantine bundle, and full-snapshot mode are functional and covered by cross-platform tests. A first-party [12-repository validation run](docs/VALIDATION.md) is published, but it is not a substitute for an independent adversarial benchmark. The [roadmap](docs/ROADMAP.md) defines the release bar for signed approvals, clean-worktree promotion, enforcement adapters, and broader reproducible benchmarks.
+HostLatch is an **experimental v0.2 public beta**. The scanner, activation manifest, quarantine bundle, and full-snapshot mode are functional and covered by cross-platform tests. A first-party [12-repository validation run](docs/VALIDATION.md) is published, but it is not a substitute for an independent adversarial benchmark. The [roadmap](docs/ROADMAP.md) defines the release bar for signed approvals, clean-worktree promotion, enforcement adapters, and broader reproducible benchmarks. The next bounded research direction is [ShadowReach](docs/SHADOWREACH_PLAN.md): reverse activation reachability from a changed file to an unchanged trusted control root.
 
 Do not describe HostLatch as “state of the art” until those benchmarks exist.
 

@@ -18,6 +18,8 @@
 
 ## Phase 2B — Controlled promotion
 
+- implement the bounded [ShadowReach](SHADOWREACH_PLAN.md) experiment: reverse activation reachability from a changed leaf to an unchanged trusted control root;
+- bind every resolved root-to-leaf activation witness and its artifact hashes into the promotion manifest;
 - reconstruct approved content in a clean Git worktree;
 - bind human approvals to exact manifest and artifact hashes;
 - prevent time-of-check/time-of-use drift before applying a promotion;
