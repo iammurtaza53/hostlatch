@@ -1,0 +1,49 @@
+{
+  "name": "hostlatch",
+  "version": "0.1.0",
+  "description": "Trust-handoff firewall for AI-written repositories.",
+  "type": "module",
+  "bin": {
+    "hostlatch": "./bin/hostlatch.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "docs/*.md",
+    "README.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "lint": "node --check bin/hostlatch.js && node --check src/bundle.js && node --check src/cli.js && node --check src/git.js && node --check src/rules.js && node --check src/scan.js && node --check src/util.js"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "keywords": [
+    "ai-agent-security",
+    "coding-agents",
+    "repository-security",
+    "supply-chain-security",
+    "devsecops",
+    "trust-handoff",
+    "cli"
+  ],
+  "author": "Murtaza Z. (https://github.com/iammurtaza53)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iammurtaza53/hostlatch.git"
+  },
+  "homepage": "https://github.com/iammurtaza53/hostlatch#readme",
+  "bugs": {
+    "url": "https://github.com/iammurtaza53/hostlatch/issues"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}
