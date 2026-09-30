@@ -48,6 +48,10 @@ Several projects scan AI configuration or sandbox live agents. HostLatch complem
 Requires Node.js 22.13 or newer and Git.
 
 ```bash
+# Run the immutable release directly from GitHub; no global install
+npx --yes github:iammurtaza53/hostlatch#v0.2.0 scan /path/to/repository --snapshot
+
+# Or clone it for the demo, development, and repeated local use
 git clone https://github.com/iammurtaza53/hostlatch.git
 cd hostlatch
 npm ci
