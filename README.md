@@ -183,15 +183,15 @@ Do not describe HostLatch as “state of the art” until those benchmarks exist
 
 Agent and configuration security:
 
-- [CodeGate](https://github.com/stacklok/codegate) scans and remediates AI coding-tool configuration, including MCP servers, plugins, rules, hooks and settings.
+- [CodeGate](https://github.com/stacklok/codegate) (archived) documented scanning and remediation for AI coding-tool configuration, including MCP servers, plugins, rules, hooks and settings.
 - [Snyk Agent Scan](https://github.com/snyk/agent-scan) discovers and assesses agent components such as MCP servers and skills, with optional modes that start or contact servers for deeper analysis.
-- [AgentGuard](https://github.com/agentguard-ai/agentguard) monitors AI coding-agent activity across hooks, MCP, secrets, processes, ports, dependencies and file integrity.
-- [SkillGuard](https://github.com/qualifire-dev/skillguard) statically analyzes agent skills, manifests, hooks and scripts, including cross-skill privilege chains.
+- [AgentGuard](https://github.com/jeromwolf/agentguard) monitors AI coding-agent activity across hooks, MCP, secrets, processes, ports, dependencies and file integrity.
+- [SkillGuard](https://github.com/RudrenduPaul/skillguard) statically analyzes agent skills, manifests, hooks and scripts, including cross-skill privilege chains.
 
 Runtime, CI and supply-chain controls:
 
-- [Hydra](https://github.com/kenhuangus/hydra) intercepts AI-agent threats such as poisoned configuration and destructive commands at runtime.
-- [cplt](https://github.com/friendlymatthew/cplt) applies kernel-level sandboxing and Git-aware policy to live coding-agent sessions.
+- [Hydra](https://github.com/enchanter-ai/hydra) intercepts AI-agent threats such as poisoned configuration and destructive commands at runtime.
+- [cplt](https://github.com/navikt/cplt) applies kernel-level sandboxing and Git-aware policy to live coding-agent sessions.
 - [zizmor](https://github.com/zizmorcore/zizmor) provides static analysis for CI/CD configurations, including GitHub Actions and Dependabot.
 - [Harden-Runner](https://github.com/step-security/harden-runner) monitors CI runner network, file and process activity to reduce software supply-chain risk.
 
