@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://iammurtaza53.github.io/hostlatch/sitemap.xml
+Sitemap: https://murtazazoaib.com/hostlatch/sitemap.xml
