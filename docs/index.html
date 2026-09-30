@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HostLatch — AI Coding Agent Repository Security Scanner</title>
+  <meta name="description" content="HostLatch is an open-source, offline security scanner for AI coding-agent repository changes, with Git-delta analysis, activation graphs, and quarantine-first promotion bundles.">
+  <meta name="keywords" content="AI coding agent security, Claude Code security, Codex security, Cursor security, MCP security, repository scanner, software supply chain, DevSecOps">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://iammurtaza53.github.io/hostlatch/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="HostLatch — Trust-handoff firewall for AI-written repositories">
+  <meta property="og:description" content="Scan AI coding-agent changes before trusted host tools load them. Offline, explainable, and open source.">
+  <meta property="og:url" content="https://iammurtaza53.github.io/hostlatch/">
+  <meta property="og:image" content="https://iammurtaza53.github.io/hostlatch/assets/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HostLatch — AI Coding Agent Repository Security Scanner">
+  <meta name="twitter:description" content="Git-delta analysis, activation graphs, and quarantine-first promotion for coding-agent changes.">
+  <meta name="twitter:image" content="https://iammurtaza53.github.io/hostlatch/assets/social-preview.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "HostLatch",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "softwareVersion": "0.2.0",
+    "description": "An offline security scanner for AI coding-agent repository changes, with Git-delta analysis, activation graphs, and quarantine-first promotion bundles.",
+    "url": "https://iammurtaza53.github.io/hostlatch/",
+    "codeRepository": "https://github.com/iammurtaza53/hostlatch",
+    "downloadUrl": "https://github.com/iammurtaza53/hostlatch/releases",
+    "license": "https://opensource.org/license/mit",
+    "author": {
+      "@type": "Person",
+      "name": "Murtaza Z.",
+      "url": "https://murtazazoaib.com/"
+    }
+  }
+  </script>
+  <style>
+    :root { color-scheme: dark; --bg: #07111f; --panel: #0d1b2a; --ink: #eef7ff; --muted: #a9bfd2; --cyan: #55e6c1; --blue: #6ea8fe; --line: #20364a; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: radial-gradient(circle at 80% 0, #123c4a 0, var(--bg) 36rem); color: var(--ink); font: 17px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { width: min(1050px, calc(100% - 2rem)); margin: 0 auto; padding: 5rem 0; }
+    .eyebrow { color: var(--cyan); font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { max-width: 850px; margin: .5rem 0 1rem; font-size: clamp(3rem, 9vw, 6.4rem); line-height: .95; letter-spacing: -.06em; }
+    h2 { margin-top: 3.5rem; font-size: clamp(1.7rem, 4vw, 2.5rem); }
+    .lead { max-width: 780px; color: var(--muted); font-size: clamp(1.15rem, 2.4vw, 1.45rem); }
+    .actions { display: flex; flex-wrap: wrap; gap: .8rem; margin: 2rem 0 3rem; }
+    a { color: var(--cyan); }
+    .button { display: inline-block; padding: .75rem 1rem; border: 1px solid var(--cyan); border-radius: .55rem; color: var(--bg); background: var(--cyan); font-weight: 750; text-decoration: none; }
+    .button.secondary { color: var(--ink); background: transparent; border-color: var(--line); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .card { padding: 1.25rem; border: 1px solid var(--line); border-radius: .8rem; background: color-mix(in srgb, var(--panel) 90%, transparent); }
+    .card strong { display: block; color: var(--cyan); font-size: 1.8rem; }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    pre { overflow: auto; padding: 1rem; border: 1px solid var(--line); border-radius: .7rem; background: #050b13; }
+    footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--line); color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">Open-source repository security</div>
+    <h1>HostLatch</h1>
+    <p class="lead">The trust-handoff firewall for AI-written repositories. HostLatch finds changes that can gain authority later when Git, an IDE, a package manager, CI, a container tool, or another coding agent consumes them.</p>
+    <div class="actions">
+      <a class="button" href="https://github.com/iammurtaza53/hostlatch">View on GitHub</a>
+      <a class="button secondary" href="VALIDATION.html">Read the validation</a>
+      <a class="button secondary" href="https://github.com/iammurtaza53/hostlatch/releases">Download a release</a>
+    </div>
+
+    <div class="grid" aria-label="Validation summary">
+      <div class="card"><strong>12</strong>repositories in the first-party corpus</div>
+      <div class="card"><strong>2,359</strong>files inspected without executing repository code</div>
+      <div class="card"><strong>21.4s</strong>total recorded scan time</div>
+      <div class="card"><strong>MIT</strong>licensed and developed in public</div>
+    </div>
+
+    <h2>Audit the handoff, not only the agent run</h2>
+    <p>Coding-agent sandboxes constrain what an agent executes during a task. Repository files can still be loaded later by more trusted host tools. HostLatch maps those paths as artifact → consumer → trigger → effect, then separates ordinary changes from quarantined activation surfaces.</p>
+
+    <h2>Try the public beta</h2>
+    <pre><code>git clone https://github.com/iammurtaza53/hostlatch.git
+cd hostlatch
+npm ci
+npm run demo
+
+# Scan a task delta
+node ./bin/hostlatch.js scan /path/to/repository --base main
+
+# Audit a complete snapshot
+node ./bin/hostlatch.js scan /path/to/repository --snapshot</code></pre>
+
+    <h2>What it covers</h2>
+    <div class="grid">
+      <div class="card">Claude Code, Codex, Cursor, Gemini CLI, and Copilot repository controls</div>
+      <div class="card">MCP commands, agent hooks, permission bypasses, and sandbox changes</div>
+      <div class="card">IDE tasks, package lifecycle scripts, CI permissions, and Git drivers</div>
+      <div class="card">Development containers, host mounts, executable files, and escaping symlinks</div>
+    </div>
+
+    <h2>Evidence without inflated claims</h2>
+    <p>The initial corpus produced 77 rule-fit findings, including two high-severity activation patterns. These are review signals, not 77 confirmed vulnerabilities. The report publishes pinned public commits, anonymized private aggregates, performance data, privacy treatment, and limitations.</p>
+    <p><a href="VALIDATION.html">Read the complete validation report</a> or inspect the <a href="validation/2026-09-30.json">machine-readable aggregate</a>.</p>
+
+    <footer>HostLatch 0.2.0 public beta · Created by <a href="https://murtazazoaib.com/">Murtaza Z.</a> · <a href="https://github.com/iammurtaza53/hostlatch/blob/main/LICENSE">MIT License</a></footer>
+  </main>
+</body>
+</html>

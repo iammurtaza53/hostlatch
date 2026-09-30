@@ -62,7 +62,7 @@ Do not copy quarantined files into a trusted repository until every activation p
 export async function createPromotionBundle(input, output, options = {}) {
   if (!output) throw new Error('bundle requires --output <directory>');
   const root = await resolveRepository(input);
-  const base = await resolveBase(root, options.base);
+  const base = await resolveBase(root, options.snapshot ? '<empty-tree>' : options.base);
   const [changes, metadata] = await Promise.all([
     collectChanges(root, base.commit, { maxFileBytes: options.maxFileBytes }),
     repositoryMetadata(root, base),
