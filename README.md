@@ -52,6 +52,9 @@ cd hostlatch
 npm ci
 npm link
 
+# Run a self-contained, harmless trust-handoff demonstration
+npm run demo
+
 hostlatch scan /path/to/repository --base main
 ```
 
@@ -67,6 +70,8 @@ VS Code task execution was introduced or changed
 ```
 
 Nothing from the scanned repository is imported, installed, built, or executed.
+
+See the [reproducible demo](docs/DEMO.md) for the fixture and expected result.
 
 ## Quarantine a change set
 

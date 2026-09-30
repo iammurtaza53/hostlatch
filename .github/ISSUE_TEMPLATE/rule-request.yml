@@ -1,0 +1,32 @@
+name: Activation rule request
+description: Propose a new repository-to-host activation path.
+title: "rule: "
+labels: [enhancement, rule]
+body:
+  - type: input
+    id: artifact
+    attributes:
+      label: Repository artifact
+      placeholder: .tool/config.json
+    validations:
+      required: true
+  - type: input
+    id: consumer
+    attributes:
+      label: Trusted consumer
+      placeholder: IDE, package manager, agent, CI runner
+    validations:
+      required: true
+  - type: textarea
+    id: activation
+    attributes:
+      label: Trigger and host effect
+      description: Explain exactly when the artifact is consumed and what authority it gains.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Public evidence or inert fixture
+    validations:
+      required: true
