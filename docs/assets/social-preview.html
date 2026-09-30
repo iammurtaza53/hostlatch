@@ -1,0 +1,148 @@
+<!doctype html>
+<!-- Source of social-preview.png (1280x640).
+     Re-render with a Chromium browser at exactly 1280x640 with hidden scrollbars. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>HostLatch social preview</title>
+<style>
+  :root {
+    --bg: #07111f;
+    --panel: #0d1c2d;
+    --line: #27415d;
+    --text: #f5f9ff;
+    --muted: #9fb0c3;
+    --cyan: #4fd1c5;
+    --blue: #60a5fa;
+    --amber: #fbbf24;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1280px; height: 640px; overflow: hidden; }
+  body {
+    position: relative;
+    padding: 60px 78px 54px;
+    font-family: "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(760px 440px at 86% 5%, rgba(79, 209, 197, 0.17), transparent 64%),
+      radial-gradient(620px 420px at 3% 106%, rgba(96, 165, 250, 0.14), transparent 66%),
+      linear-gradient(rgba(159, 176, 195, 0.035) 1px, transparent 1px) 0 0 / 42px 42px,
+      linear-gradient(90deg, rgba(159, 176, 195, 0.035) 1px, transparent 1px) 0 0 / 42px 42px,
+      var(--bg);
+  }
+  .top { display: flex; align-items: flex-start; justify-content: space-between; }
+  .eyebrow {
+    color: var(--cyan);
+    font-size: 19px;
+    font-weight: 750;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .mark {
+    width: 86px;
+    height: 86px;
+    border: 3px solid var(--cyan);
+    border-radius: 22px;
+    position: relative;
+    background: rgba(79, 209, 197, 0.06);
+    box-shadow: 0 0 42px rgba(79, 209, 197, 0.16);
+  }
+  .mark::before {
+    content: "";
+    position: absolute;
+    inset: 20px 25px 19px;
+    border: 5px solid var(--text);
+    border-top: 0;
+    border-radius: 0 0 12px 12px;
+  }
+  .mark::after {
+    content: "";
+    position: absolute;
+    width: 27px;
+    height: 24px;
+    left: 27px;
+    top: 13px;
+    border: 5px solid var(--text);
+    border-bottom: 0;
+    border-radius: 15px 15px 0 0;
+  }
+  h1 {
+    margin-top: 12px;
+    font-size: 92px;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    font-weight: 820;
+  }
+  .tagline {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 31px;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+  .tagline strong { color: var(--text); font-weight: 700; }
+  .flow {
+    margin-top: 36px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font-size: 18px;
+    font-weight: 650;
+  }
+  .step {
+    padding: 10px 15px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: rgba(13, 28, 45, 0.92);
+    white-space: nowrap;
+  }
+  .step.graph { border-color: rgba(96, 165, 250, 0.7); color: #bfdbfe; }
+  .step.quarantine { border-color: rgba(251, 191, 36, 0.72); color: #fde68a; }
+  .step.approve { border-color: rgba(79, 209, 197, 0.75); color: #99f6e4; }
+  .arrow { color: #5f7893; font-size: 22px; }
+  .statement {
+    margin-top: 36px;
+    padding-left: 17px;
+    border-left: 3px solid var(--amber);
+    color: #d8e3ef;
+    font-size: 23px;
+    font-weight: 600;
+  }
+  .statement b { color: var(--amber); }
+  .footer {
+    position: absolute;
+    left: 78px;
+    right: 78px;
+    bottom: 47px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 19px;
+  }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div>
+      <div class="eyebrow">Open source · Offline · Zero runtime dependencies</div>
+      <h1>HostLatch</h1>
+      <p class="tagline">The <strong>trust-handoff firewall</strong> for AI-written repositories.</p>
+    </div>
+    <div class="mark" aria-hidden="true"></div>
+  </div>
+
+  <div class="flow">
+    <span class="step">Agent change</span><span class="arrow">→</span>
+    <span class="step graph">Activation graph</span><span class="arrow">→</span>
+    <span class="step quarantine">Quarantine</span><span class="arrow">→</span>
+    <span class="step approve">Human review</span>
+  </div>
+
+  <div class="statement">The agent stayed in the sandbox. <b>The files it left behind did not.</b></div>
+
+  <div class="footer">
+    <span>github.com/iammurtaza53/hostlatch</span>
+    <span>Git · IDE · Agent · Package · CI · Container</span>
+  </div>
+</body>
+</html>

@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If HostLatch supports your research, please cite this repository."
+title: "HostLatch: A trust-handoff firewall for AI-written repositories"
+type: software
+authors:
+  - family-names: "Z."
+    given-names: "Murtaza"
+repository-code: "https://github.com/iammurtaza53/hostlatch"
+url: "https://github.com/iammurtaza53/hostlatch"
+license: MIT
+version: 0.1.0
+date-released: 2026-09-30
+keywords:
+  - AI coding agent security
+  - trust handoff
+  - repository security
+  - DevSecOps

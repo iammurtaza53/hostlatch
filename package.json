@@ -9,6 +9,7 @@
   "files": [
     "bin/",
     "src/",
+    "scripts/",
     "docs/*.md",
     "README.md",
     "CHANGELOG.md",
@@ -17,8 +18,9 @@
     "LICENSE"
   ],
   "scripts": {
+    "demo": "node scripts/demo.js",
     "test": "node --test test/*.test.js",
-    "lint": "node --check bin/hostlatch.js && node --check src/bundle.js && node --check src/cli.js && node --check src/git.js && node --check src/rules.js && node --check src/scan.js && node --check src/util.js"
+    "lint": "node --check bin/hostlatch.js && node --check scripts/demo.js && node --check src/bundle.js && node --check src/cli.js && node --check src/git.js && node --check src/rules.js && node --check src/scan.js && node --check src/util.js"
   },
   "engines": {
     "node": ">=22.13.0"

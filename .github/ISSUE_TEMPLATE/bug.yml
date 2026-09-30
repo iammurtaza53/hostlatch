@@ -1,0 +1,35 @@
+name: Bug report
+description: Report an incorrect result or CLI problem. Use private reporting for security vulnerabilities.
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not disclose a scanner bypass or vulnerability here. Use the Security tab instead.
+  - type: input
+    id: version
+    attributes:
+      label: HostLatch version
+      placeholder: 0.1.0
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options: [Linux, macOS, Windows, Other]
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Remove secrets and provide inert sample content only.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and observed behavior
+    validations:
+      required: true
