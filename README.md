@@ -5,6 +5,8 @@
 [![Node.js 22+](https://img.shields.io/badge/node-%3E%3D22.13-16a34a.svg)](package.json)
 [![Corpus validation](https://img.shields.io/badge/validated-12_repositories_%C2%B7_2%2C359_files-0f766e.svg)](docs/VALIDATION.md)
 
+**[Try it](#try-it-in-60-seconds) · [Commands](#commands) · [Detection coverage](#detection-coverage) · [CI usage](#ci-usage) · [Related projects](#related-projects)**
+
 **The trust-handoff firewall for AI-written repositories.**
 
 > The agent stayed inside its sandbox. The files it left behind did not.
@@ -166,6 +168,34 @@ Read the full [threat model](docs/THREAT_MODEL.md). Please report vulnerabilitie
 HostLatch is an **experimental v0.2 public beta**. The scanner, activation manifest, quarantine bundle, and full-snapshot mode are functional and covered by cross-platform tests. A first-party [12-repository validation run](docs/VALIDATION.md) is published, but it is not a substitute for an independent adversarial benchmark. The [roadmap](docs/ROADMAP.md) defines the release bar for signed approvals, clean-worktree promotion, enforcement adapters, and broader reproducible benchmarks. The next bounded research direction is [ShadowReach](docs/SHADOWREACH_PLAN.md): reverse activation reachability from a changed file to an unchanged trusted control root.
 
 Do not describe HostLatch as “state of the art” until those benchmarks exist.
+
+## Related projects
+
+### Companion project (same author)
+
+- [Dev Agent Autopilot](https://github.com/iammurtaza53/dev-agent-autopilot) takes a task file to a CI-checked pull request: Codex plans, Claude Code implements and runs checks in a background session, and native `codex review` reviews within a diff-based round budget before the workflow stops for a human merge. HostLatch complements that workflow by scanning the resulting branch before merge:
+
+  ```bash
+  hostlatch scan . --base origin/main
+  ```
+
+### Prior art and adjacent controls
+
+Agent and configuration security:
+
+- [CodeGate](https://github.com/stacklok/codegate) scans and remediates AI coding-tool configuration, including MCP servers, plugins, rules, hooks and settings.
+- [Snyk Agent Scan](https://github.com/snyk/agent-scan) discovers and assesses agent components such as MCP servers and skills, with optional modes that start or contact servers for deeper analysis.
+- [AgentGuard](https://github.com/agentguard-ai/agentguard) monitors AI coding-agent activity across hooks, MCP, secrets, processes, ports, dependencies and file integrity.
+- [SkillGuard](https://github.com/qualifire-dev/skillguard) statically analyzes agent skills, manifests, hooks and scripts, including cross-skill privilege chains.
+
+Runtime, CI and supply-chain controls:
+
+- [Hydra](https://github.com/kenhuangus/hydra) intercepts AI-agent threats such as poisoned configuration and destructive commands at runtime.
+- [cplt](https://github.com/friendlymatthew/cplt) applies kernel-level sandboxing and Git-aware policy to live coding-agent sessions.
+- [zizmor](https://github.com/zizmorcore/zizmor) provides static analysis for CI/CD configurations, including GitHub Actions and Dependabot.
+- [Harden-Runner](https://github.com/step-security/harden-runner) monitors CI runner network, file and process activity to reduce software supply-chain risk.
+
+HostLatch does not replace these controls. Its focus is deliberately non-executing and task-delta oriented: it attributes newly changed activation paths to a Git change set, explains the artifact → consumer → trigger → effect chain, and can materialize ordinary and activation-bearing changes into separate hash-bound promotion zones. The [ShadowReach roadmap](docs/SHADOWREACH_PLAN.md) extends this model to changed files that become reachable from unchanged control roots.
 
 ## Contributing
 
