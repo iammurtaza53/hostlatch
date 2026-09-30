@@ -80,7 +80,11 @@
     <p>Coding-agent sandboxes constrain what an agent executes during a task. Repository files can still be loaded later by more trusted host tools. HostLatch maps those paths as artifact → consumer → trigger → effect, then separates ordinary changes from quarantined activation surfaces.</p>
 
     <h2>Try the public beta</h2>
-    <pre><code>git clone https://github.com/iammurtaza53/hostlatch.git
+    <pre><code># Run the immutable release directly from GitHub
+npx --yes github:iammurtaza53/hostlatch#v0.2.0 scan /path/to/repository --snapshot
+
+# Or clone it for the demo and repeated local use
+git clone https://github.com/iammurtaza53/hostlatch.git
 cd hostlatch
 npm ci
 npm run demo
