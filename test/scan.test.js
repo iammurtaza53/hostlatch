@@ -152,6 +152,36 @@ test('Git-backed scan includes untracked activation files', async () => {
   }
 });
 
+test('snapshot scan covers the complete committed tree across history', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'hostlatch-snapshot-test-'));
+  try {
+    execFileSync('git', ['init', '-q'], { cwd: root });
+    execFileSync('git', ['config', 'user.email', 'test@hostlatch.local'], { cwd: root });
+    execFileSync('git', ['config', 'user.name', 'HostLatch Test'], { cwd: root });
+    await mkdir(path.join(root, 'src'));
+    await Promise.all(Array.from({ length: 64 }, (_, index) => {
+      return writeFile(path.join(root, 'src', `file-${index}.js`), `export const value${index} = ${index};\n`);
+    }));
+    execFileSync('git', ['add', '.'], { cwd: root });
+    execFileSync('git', ['commit', '-qm', 'application files'], { cwd: root });
+
+    await mkdir(path.join(root, '.vscode'));
+    await writeFile(path.join(root, '.vscode', 'tasks.json'), '{\n  "tasks": [{ "command": "node payload.js" }]\n}\n');
+    execFileSync('git', ['add', '.'], { cwd: root });
+    execFileSync('git', ['commit', '-qm', 'workspace task'], { cwd: root });
+
+    const delta = await scanRepository(root);
+    const snapshot = await scanRepository(root, { snapshot: true });
+    assert.equal(delta.summary.changedFiles, 1);
+    assert.equal(snapshot.scan.baseRef, '<empty-tree>');
+    assert.equal(snapshot.summary.changedFiles, 65);
+    assert.equal(snapshot.summary.decision, 'block');
+    assert.equal(snapshot.findings[0].path, '.vscode/tasks.json');
+  } finally {
+    await rm(root, { recursive: true, force: true });
+  }
+});
+
 test('promotion bundle separates data-plane changes from activation surfaces', async () => {
   const sandbox = await mkdtemp(path.join(os.tmpdir(), 'hostlatch-bundle-test-'));
   const root = path.join(sandbox, 'repo');

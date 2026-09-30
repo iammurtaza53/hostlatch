@@ -2,7 +2,7 @@ import { analyzeChange } from './rules.js';
 import { collectChanges, repositoryMetadata, resolveBase, resolveRepository } from './git.js';
 import { compareFindings, sha256, slug, stableStringify } from './util.js';
 
-const VERSION = '0.1.0';
+const VERSION = '0.2.0';
 const SCORE_WEIGHT = Object.freeze({ critical: 100, high: 40, medium: 10, low: 2, info: 0 });
 
 function summarize(findings, changedFiles) {
@@ -108,7 +108,7 @@ export function analyzeChanges(changes, metadata = {}, options = {}) {
 
 export async function scanRepository(input = '.', options = {}) {
   const root = await resolveRepository(input);
-  const base = await resolveBase(root, options.base);
+  const base = await resolveBase(root, options.snapshot ? '<empty-tree>' : options.base);
   const [changes, metadata] = await Promise.all([
     collectChanges(root, base.commit, { maxFileBytes: options.maxFileBytes }),
     repositoryMetadata(root, base),

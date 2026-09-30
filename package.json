@@ -1,6 +1,6 @@
 {
   "name": "hostlatch",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Trust-handoff firewall for AI-written repositories.",
   "type": "module",
   "bin": {
@@ -27,8 +27,17 @@
   },
   "keywords": [
     "ai-agent-security",
+    "ai-coding-agents",
+    "ai-security",
+    "claude-code",
+    "codex",
     "coding-agents",
+    "cursor",
+    "github-copilot",
+    "mcp-security",
     "repository-security",
+    "security-scanner",
+    "static-analysis",
     "supply-chain-security",
     "devsecops",
     "trust-handoff",

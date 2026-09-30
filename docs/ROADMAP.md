@@ -3,6 +3,7 @@
 ## Phase 1 — Activation intelligence (implemented)
 
 - Git-delta collection, including committed, staged, unstaged, and untracked files;
+- full-snapshot auditing against Git's empty tree;
 - control-plane classification and content-aware rules;
 - repository-escape and executable-mode detection;
 - activation graph, risk decision, and deterministic manifest;
@@ -29,12 +30,14 @@
 - record reviewer, policy version, expiry, and one-time activation nonce;
 - add SARIF and reusable GitHub Action output.
 
-## Phase 4 — Enforcement adapters and benchmark
+## Phase 4 — Enforcement adapters and broader benchmark
 
 - pre-open IDE and agent launch wrappers;
 - Git, CI, package-manager, and Dev Agent Autopilot integration;
 - public corpus of benign and adversarial trust-handoff fixtures;
 - precision, recall, bypass-resistance, and performance reporting against documented baselines.
+
+An initial first-party corpus run is published in [VALIDATION.md](VALIDATION.md). It validates rule fit and scanner behavior on 12 repositories but does not measure recall, bypass resistance, competing tools, or independent review.
 
 ## Release bar
 

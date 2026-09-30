@@ -40,6 +40,9 @@ export async function resolveRepository(input = '.') {
 
 export async function resolveBase(root, requestedRef) {
   if (requestedRef) {
+    if (requestedRef === '<empty-tree>') {
+      return { ref: '<empty-tree>', commit: EMPTY_TREE };
+    }
     const commit = await tryGit(root, ['rev-parse', '--verify', `${requestedRef}^{commit}`]);
     if (!commit) throw new Error(`Base ref does not resolve to a commit: ${requestedRef}`);
     return { ref: requestedRef, commit };
@@ -84,14 +87,23 @@ function parseNameStatus(output) {
   return changes;
 }
 
-function parseMode(output) {
-  const match = /^\d+\s+\w+\s+\d+\t/.exec(output);
-  return match ? match[0].split(/\s+/)[0] : null;
+function parseModeMap(output) {
+  const modes = new Map();
+  for (const entry of output.split('\0')) {
+    if (!entry) continue;
+    const separator = entry.indexOf('\t');
+    if (separator === -1) continue;
+    const metadata = entry.slice(0, separator);
+    const relativePath = entry.slice(separator + 1);
+    const mode = metadata.split(/\s+/, 1)[0];
+    if (mode && relativePath) modes.set(normalizeRepoPath(relativePath), mode);
+  }
+  return modes;
 }
 
-async function currentMode(root, relativePath) {
-  const tracked = await tryGit(root, ['ls-files', '-s', '--', relativePath]);
-  if (tracked) return parseMode(tracked);
+async function currentMode(root, relativePath, indexedModes) {
+  const tracked = indexedModes.get(normalizeRepoPath(relativePath));
+  if (tracked) return tracked;
   try {
     const stat = await fs.lstat(path.join(root, relativePath));
     if (stat.isSymbolicLink()) return '120000';
@@ -99,11 +111,6 @@ async function currentMode(root, relativePath) {
   } catch {
     return null;
   }
-}
-
-async function baseMode(root, base, relativePath) {
-  const output = await tryGit(root, ['ls-tree', base, '--', relativePath]);
-  return output ? parseMode(output) : null;
 }
 
 async function readCurrent(root, relativePath, maxFileBytes) {
@@ -151,15 +158,29 @@ export async function collectChanges(root, base, options = {}) {
     .filter((file) => !trackedPaths.has(file))
     .map((file) => ({ status: 'A', path: file, untracked: true }));
 
+  // Resolve tracked modes in two Git calls instead of spawning two Git
+  // processes for every changed path. Snapshot scans can cover thousands of
+  // files, and per-file process fan-out is especially expensive on Windows.
+  const [indexedModeOutput, baseModeOutput] = await Promise.all([
+    git(root, ['ls-files', '-s', '-z']),
+    git(root, ['ls-tree', '-r', '-z', base]),
+  ]);
+  const indexedModes = parseModeMap(indexedModeOutput);
+  const baseModes = parseModeMap(baseModeOutput);
+
   const changes = await Promise.all([...tracked, ...untracked].map(async (change) => {
     const previousPath = change.oldPath || change.path;
     const [current, previous, mode, oldMode] = await Promise.all([
       change.status === 'D'
         ? { content: '', hash: null, truncated: false, symlinkTarget: null }
         : readCurrent(root, change.path, maxFileBytes),
-      readBase(root, base, previousPath, maxFileBytes),
-      change.status === 'D' ? Promise.resolve(null) : currentMode(root, change.path),
-      baseMode(root, base, previousPath),
+      change.status === 'A'
+        ? Promise.resolve({ content: '', truncated: false })
+        : readBase(root, base, previousPath, maxFileBytes),
+      change.status === 'D'
+        ? Promise.resolve(null)
+        : currentMode(root, change.path, indexedModes),
+      Promise.resolve(change.status === 'A' ? null : baseModes.get(previousPath) || null),
     ]);
     return {
       ...change,

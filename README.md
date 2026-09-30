@@ -3,6 +3,7 @@
 [![CI](https://github.com/iammurtaza53/hostlatch/actions/workflows/ci.yml/badge.svg)](https://github.com/iammurtaza53/hostlatch/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-2563eb.svg)](LICENSE)
 [![Node.js 22+](https://img.shields.io/badge/node-%3E%3D22.13-16a34a.svg)](package.json)
+[![Corpus validation](https://img.shields.io/badge/validated-12_repositories_%C2%B7_2%2C359_files-0f766e.svg)](docs/VALIDATION.md)
 
 **The trust-handoff firewall for AI-written repositories.**
 
@@ -56,6 +57,9 @@ npm link
 npm run demo
 
 hostlatch scan /path/to/repository --base main
+
+# Audit every file in the current snapshot, not only a Git delta
+hostlatch scan /path/to/repository --snapshot
 ```
 
 Example result:
@@ -72,6 +76,12 @@ VS Code task execution was introduced or changed
 Nothing from the scanned repository is imported, installed, built, or executed.
 
 See the [reproducible demo](docs/DEMO.md) for the fixture and expected result.
+
+## Validation evidence
+
+HostLatch 0.2 was exercised against 12 recently active repositories containing 2,359 tracked files. The scanner produced 77 findings: 75 review-level control surfaces and two high-severity activation patterns. Manual rule-fit review found that all 77 matched the documented rule criteria; this does **not** mean that 77 vulnerabilities were present.
+
+The complete run took 21.4 seconds on the documented Windows test machine after snapshot scanning was optimized to batch Git metadata reads. Results, pinned public commits, privacy treatment, limitations, and reproduction commands are in the [validation report](docs/VALIDATION.md).
 
 ## Quarantine a change set
 
@@ -99,7 +109,7 @@ hostlatch-review/
 
 | Command | Purpose |
 | --- | --- |
-| `hostlatch scan [path]` | Scan committed, staged, unstaged, and untracked changes |
+| `hostlatch scan [path]` | Scan a Git delta or the complete current snapshot |
 | `hostlatch bundle [path] --output <dir>` | Split a change set into data-plane and quarantined artifacts |
 | `hostlatch explain <manifest.json>` | Explain a stored decision without rescanning |
 | `hostlatch --version` | Print the installed version |
@@ -108,6 +118,7 @@ Important options:
 
 ```text
 --base <ref>           Git commit or ref to compare
+--snapshot             Compare the complete current tree with an empty tree
 --json                 Emit structured JSON
 --output <path>        Manifest file or new bundle directory
 --fail-on <level>      block (default), review, or never
@@ -148,7 +159,7 @@ Read the full [threat model](docs/THREAT_MODEL.md). Please report vulnerabilitie
 
 ## Project status
 
-HostLatch is an **experimental v0.1 release**. The scanner, activation manifest, and quarantine bundle are functional and covered by cross-platform tests. The [roadmap](docs/ROADMAP.md) defines the release bar for signed approvals, clean-worktree promotion, enforcement adapters, and reproducible benchmarks.
+HostLatch is an **experimental v0.2 public beta**. The scanner, activation manifest, quarantine bundle, and full-snapshot mode are functional and covered by cross-platform tests. A first-party [12-repository validation run](docs/VALIDATION.md) is published, but it is not a substitute for an independent adversarial benchmark. The [roadmap](docs/ROADMAP.md) defines the release bar for signed approvals, clean-worktree promotion, enforcement adapters, and broader reproducible benchmarks.
 
 Do not describe HostLatch as “state of the art” until those benchmarks exist.
 

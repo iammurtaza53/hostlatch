@@ -17,6 +17,7 @@ Usage:
 
 Scan options:
   --base <ref>             Compare with this Git commit or ref
+  --snapshot               Compare the complete current tree with an empty tree
   --json                   Print the complete manifest as JSON
   --output <path>          Manifest file for scan; new bundle directory for bundle
   --fail-on <level>        block (default), review, or never
@@ -34,6 +35,7 @@ function parseScanArgs(args) {
   const options = {
     path: '.',
     base: undefined,
+    snapshot: false,
     json: false,
     output: undefined,
     failOn: 'block',
@@ -44,6 +46,7 @@ function parseScanArgs(args) {
   for (let index = 0; index < args.length; index += 1) {
     const arg = args[index];
     if (arg === '--json') options.json = true;
+    else if (arg === '--snapshot') options.snapshot = true;
     else if (arg === '-h' || arg === '--help') options.help = true;
     else if (arg === '--base') options.base = requiredValue(args, ++index, '--base');
     else if (arg === '--output') options.output = requiredValue(args, ++index, '--output');
@@ -62,6 +65,9 @@ function parseScanArgs(args) {
 
   if (!['block', 'review', 'never'].includes(options.failOn)) {
     throw new Error('--fail-on must be block, review, or never');
+  }
+  if (options.snapshot && options.base) {
+    throw new Error('--snapshot cannot be combined with --base');
   }
   if (!Number.isSafeInteger(options.maxFileBytes) || options.maxFileBytes < 1024) {
     throw new Error('--max-file-bytes must be an integer of at least 1024');

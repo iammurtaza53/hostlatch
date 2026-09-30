@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "runDate": "2026-09-30",
+  "tool": {
+    "name": "HostLatch",
+    "version": "0.2.0",
+    "mode": "snapshot",
+    "maxFileBytes": 1048576
+  },
+  "corpus": {
+    "selection": "12 most recently active non-fork repositories visible to the owner",
+    "repositories": 12,
+    "publicNamedRepositories": 5,
+    "privateAnonymizedRepositories": 7,
+    "files": 2359,
+    "truncatedFiles": 9,
+    "truncatedControlSurfaces": 0
+  },
+  "results": {
+    "findings": 77,
+    "bySeverity": {
+      "critical": 0,
+      "high": 2,
+      "medium": 75,
+      "low": 0,
+      "info": 0
+    },
+    "byDecision": {
+      "block": 2,
+      "review": 8,
+      "allow": 2
+    },
+    "byCategory": {
+      "agent-control-plane": 23,
+      "ci-control-plane": 7,
+      "environment-control-plane": 6,
+      "git-control-plane": 4,
+      "ide-control-plane": 1,
+      "package-control-plane": 36
+    },
+    "manualRuleFitReview": {
+      "reviewed": 77,
+      "matchedDocumentedRuleIntent": 77,
+      "ruleFitMismatches": 0,
+      "qualification": "Rule fit is not equivalent to vulnerability-detection precision or proof of exploitability."
+    }
+  },
+  "performance": {
+    "totalMilliseconds": 21373,
+    "medianRepositoryMilliseconds": 1024,
+    "maximumRepositoryMilliseconds": 7988,
+    "environment": {
+      "operatingSystem": "Windows NT 10.0.26200",
+      "processor": "11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz",
+      "logicalProcessors": 8,
+      "node": "24.21.0",
+      "git": "2.47.1.windows.1"
+    }
+  },
+  "publicRepositories": [
+    {
+      "name": "dev-agent-autopilot",
+      "url": "https://github.com/iammurtaza53/dev-agent-autopilot",
+      "commit": "cb1c6ba71132d82b5f53d1c81127b871f8f566f1",
+      "files": 73,
+      "findings": 7,
+      "decision": "review"
+    },
+    {
+      "name": "iammurtaza53.github.io",
+      "url": "https://github.com/iammurtaza53/iammurtaza53.github.io",
+      "commit": "fe42e265e675168413e014bb88dee2aee4c2a0bd",
+      "files": 31,
+      "findings": 3,
+      "decision": "block"
+    },
+    {
+      "name": "hostlatch",
+      "url": "https://github.com/iammurtaza53/hostlatch",
+      "commit": "486d51c0ca06d5e8f94366b8208ea3f6d89236e8",
+      "files": 33,
+      "findings": 3,
+      "decision": "review"
+    },
+    {
+      "name": "dev-agent-autopilot-demo",
+      "url": "https://github.com/iammurtaza53/dev-agent-autopilot-demo",
+      "commit": "4e35de10fde1f99bf113f3d29904a28e0bc08194",
+      "files": 10,
+      "findings": 4,
+      "decision": "review"
+    },
+    {
+      "name": "n8n-faq-chatbot-langchain",
+      "url": "https://github.com/iammurtaza53/n8n-faq-chatbot-langchain",
+      "commit": "91d4830fd1c9da89a5fce0f13b75cdee63f4a416",
+      "files": 8,
+      "findings": 0,
+      "decision": "allow"
+    }
+  ],
+  "privateAggregate": {
+    "repositories": 7,
+    "files": 2204,
+    "findings": 60,
+    "bySeverity": {
+      "critical": 0,
+      "high": 1,
+      "medium": 59,
+      "low": 0,
+      "info": 0
+    },
+    "byDecision": {
+      "block": 1,
+      "review": 5,
+      "allow": 1
+    }
+  }
+}
