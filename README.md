@@ -5,7 +5,7 @@
 [![Node.js 22+](https://img.shields.io/badge/node-%3E%3D22.13-16a34a.svg)](package.json)
 [![Corpus validation](https://img.shields.io/badge/validated-12_repositories_%C2%B7_2%2C359_files-0f766e.svg)](docs/VALIDATION.md)
 
-**[Try it](#try-it-in-60-seconds) · [Commands](#commands) · [Detection coverage](#detection-coverage) · [CI usage](#ci-usage) · [Related projects](#related-projects)**
+**[Website](https://murtazazoaib.com/hostlatch/) · [Try it](#try-it-in-60-seconds) · [Commands](#commands) · [Detection coverage](#detection-coverage) · [CI usage](#ci-usage) · [Related projects](#related-projects)**
 
 **The trust-handoff firewall for AI-written repositories.**
 
