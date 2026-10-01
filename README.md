@@ -150,12 +150,42 @@ Rules are delta-aware: HostLatch reports newly introduced or changed behavior ra
 
 ## CI usage
 
+The reusable [HostLatch Action](https://github.com/iammurtaza53/hostlatch-action) scans pull-request changes, uploads the JSON manifest as an artifact, and then enforces the selected threshold:
+
 ```yaml
-- name: Scan trust-handoff changes
-  run: node ./bin/hostlatch.js scan . --base origin/main --fail-on review
+name: HostLatch
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  hostlatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository history
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Scan trust-handoff changes
+        uses: iammurtaza53/hostlatch-action@v1
+        with:
+          base: origin/main
+          fail-on: review
+          output: hostlatch-manifest.json
 ```
 
-Use `--json --output hostlatch-manifest.json` to retain an audit artifact. A reusable GitHub Action and SARIF output are planned after the CLI policy stabilizes.
+The inputs default to `base: origin/main`, `fail-on: block`, and `output: hostlatch-manifest.json`. The action runs immutable HostLatch v0.2.0 source and uploads `hostlatch-manifest-<job>-<os>` even when a finding reaches the configured threshold. For an immutable workflow dependency, replace `@v1` with the action release commit `@a270e03a83fbeb585fb2b981bfdf130f2d7c3f23`.
+
+For a repository-local installation, the equivalent CLI command is:
+
+```yaml
+- name: Scan trust-handoff changes
+  run: node ./bin/hostlatch.js scan . --base origin/main --fail-on review --output hostlatch-manifest.json
+```
 
 ## Security model and limitations
 
