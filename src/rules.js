@@ -12,6 +12,8 @@ const LIFECYCLE_SCRIPTS = new Set([
 ]);
 
 function finding(change, details) {
+  const inspectedContent = change.status === 'D' ? change.baseContent : change.content;
+  const endLine = String(inspectedContent || '').split(/\r\n|\r|\n/).length;
   return {
     ruleId: details.ruleId,
     severity: details.severity,
@@ -19,6 +21,7 @@ function finding(change, details) {
     title: details.title,
     path: change.path,
     status: change.status,
+    location: { startLine: 1, endLine },
     consumer: details.consumer,
     trigger: details.trigger,
     effect: details.effect,

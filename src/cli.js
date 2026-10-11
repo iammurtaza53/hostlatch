@@ -2,6 +2,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createPromotionBundle } from './bundle.js';
+import { toSarif } from './sarif.js';
 import { exitCodeFor, scanRepository } from './scan.js';
 
 const packageRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
@@ -19,6 +20,7 @@ Scan options:
   --base <ref>             Compare with this Git commit or ref
   --snapshot               Compare the complete current tree with an empty tree
   --json                   Print the complete manifest as JSON
+  --sarif                  Emit SARIF 2.1.0 for code-scanning systems
   --output <path>          Manifest file for scan; new bundle directory for bundle
   --fail-on <level>        block (default), review, or never
   --max-file-bytes <n>     Inspection limit per file (default: 1048576)
@@ -37,6 +39,7 @@ function parseScanArgs(args) {
     base: undefined,
     snapshot: false,
     json: false,
+    sarif: false,
     output: undefined,
     failOn: 'block',
     maxFileBytes: 1024 * 1024,
@@ -46,6 +49,7 @@ function parseScanArgs(args) {
   for (let index = 0; index < args.length; index += 1) {
     const arg = args[index];
     if (arg === '--json') options.json = true;
+    else if (arg === '--sarif') options.sarif = true;
     else if (arg === '--snapshot') options.snapshot = true;
     else if (arg === '-h' || arg === '--help') options.help = true;
     else if (arg === '--base') options.base = requiredValue(args, ++index, '--base');
@@ -68,6 +72,9 @@ function parseScanArgs(args) {
   }
   if (options.snapshot && options.base) {
     throw new Error('--snapshot cannot be combined with --base');
+  }
+  if (options.json && options.sarif) {
+    throw new Error('--json cannot be combined with --sarif');
   }
   if (!Number.isSafeInteger(options.maxFileBytes) || options.maxFileBytes < 1024) {
     throw new Error('--max-file-bytes must be an integer of at least 1024');
@@ -102,10 +109,10 @@ function printHuman(manifest) {
   }
 }
 
-async function writeManifest(file, manifest) {
+async function writeReport(file, report) {
   const target = path.resolve(file);
   await fs.mkdir(path.dirname(target), { recursive: true });
-  await fs.writeFile(target, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+  await fs.writeFile(target, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
   return target;
 }
 
@@ -152,6 +159,7 @@ export async function main(argv) {
   }
 
   if (command === 'bundle') {
+    if (options.sarif) throw new Error('--sarif is supported by scan only');
     const result = await createPromotionBundle(options.path, options.output, options);
     if (options.json) console.log(JSON.stringify(result, null, 2));
     else printBundle(result);
@@ -160,12 +168,13 @@ export async function main(argv) {
   }
 
   const manifest = await scanRepository(options.path, options);
+  const report = options.sarif ? toSarif(manifest) : manifest;
   let outputPath = null;
-  if (options.output) outputPath = await writeManifest(options.output, manifest);
-  if (options.json) console.log(JSON.stringify(manifest, null, 2));
+  if (options.output) outputPath = await writeReport(options.output, report);
+  if (options.json || options.sarif) console.log(JSON.stringify(report, null, 2));
   else {
     printHuman(manifest);
-    if (outputPath) console.log(`\nManifest written to ${outputPath}`);
+    if (outputPath) console.log(`\n${options.sarif ? 'SARIF report' : 'Manifest'} written to ${outputPath}`);
   }
   process.exitCode = exitCodeFor(manifest, options.failOn);
 }

@@ -8,6 +8,7 @@
 - repository-escape and executable-mode detection;
 - activation graph, risk decision, and deterministic manifest;
 - offline CLI, CI-friendly exit codes, and attack-fixture tests.
+- SARIF 2.1.0 output and a reusable GitHub Action for pull-request CI.
 
 ## Phase 2A — Quarantine-first bundles (implemented)
 
@@ -30,7 +31,6 @@
 - sign approval manifests with Sigstore-compatible identities;
 - emit SLSA/in-toto-compatible attestations;
 - record reviewer, policy version, expiry, and one-time activation nonce;
-- add SARIF and reusable GitHub Action output.
 
 ## Phase 4 — Enforcement adapters and broader benchmark
 
