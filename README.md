@@ -5,7 +5,7 @@
 [![Node.js 22+](https://img.shields.io/badge/node-%3E%3D22.13-16a34a.svg)](package.json)
 [![Corpus validation](https://img.shields.io/badge/validated-12_repositories_%C2%B7_2%2C359_files-0f766e.svg)](docs/VALIDATION.md)
 
-**[Website](https://murtazazoaib.com/hostlatch/) · [Try it](#try-it-in-60-seconds) · [Commands](#commands) · [Detection coverage](#detection-coverage) · [CI usage](#ci-usage) · [Related projects](#related-projects)**
+**[Website](https://murtazazoaib.com/hostlatch/) · [Try it](#try-it-in-60-seconds) · [Commands](#commands) · [Detection coverage](#detection-coverage) · [CI usage](#ci-usage) · [SARIF](#sarif-and-github-code-scanning) · [Related projects](#related-projects)**
 
 **The trust-handoff firewall for AI-written repositories.**
 
@@ -51,7 +51,7 @@ Requires Node.js 22.13 or newer and Git.
 
 ```bash
 # Run the immutable release directly from GitHub; no global install
-npx --yes github:iammurtaza53/hostlatch#v0.2.0 scan /path/to/repository --snapshot
+npx --yes github:iammurtaza53/hostlatch#v0.3.0 scan /path/to/repository --snapshot
 
 # Or clone it for the demo, development, and repeated local use
 git clone https://github.com/iammurtaza53/hostlatch.git
@@ -126,6 +126,7 @@ Important options:
 --base <ref>           Git commit or ref to compare
 --snapshot             Compare the complete current tree with an empty tree
 --json                 Emit structured JSON
+--sarif                Emit SARIF 2.1.0 for code-scanning systems
 --output <path>        Manifest file or new bundle directory
 --fail-on <level>      block (default), review, or never
 --max-file-bytes <n>   Per-file inspection limit
@@ -187,6 +188,40 @@ For a repository-local installation, the equivalent CLI command is:
   run: node ./bin/hostlatch.js scan . --base origin/main --fail-on review --output hostlatch-manifest.json
 ```
 
+### SARIF and GitHub code scanning
+
+HostLatch 0.3 can emit standards-based SARIF 2.1.0. Findings retain the HostLatch rule, severity, activation path, evidence, remediation, and a stable fingerprint, so GitHub code scanning can track them across runs without exposing local filesystem paths.
+
+```yaml
+permissions:
+  contents: read
+  security-events: write
+
+steps:
+  - name: Check out repository history
+    uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+    with:
+      fetch-depth: 0
+
+  - name: Scan with HostLatch
+    id: hostlatch
+    continue-on-error: true
+    run: npx --yes github:iammurtaza53/hostlatch#v0.3.0 scan . --base origin/${{ github.base_ref }} --sarif --output hostlatch.sarif
+
+  - name: Upload HostLatch SARIF
+    if: always() && hashFiles('hostlatch.sarif') != ''
+    uses: github/codeql-action/upload-sarif@9f759ee644a3e7c15c1390abf49868036c00067b # v3
+    with:
+      sarif_file: hostlatch.sarif
+      category: hostlatch
+
+  - name: Enforce the HostLatch decision
+    if: steps.hostlatch.outcome == 'failure'
+    run: exit 1
+```
+
+The scanner remains fully offline. SARIF conversion happens locally after analysis; uploading the resulting file is an explicit CI choice.
+
 ## Security model and limitations
 
 HostLatch is a defense-in-depth control, not proof that a repository is safe. It does not detect every malicious application-code path, replace isolation, scan secrets, or verify dependency integrity. Rule coverage is explicit and incomplete by design.
@@ -195,7 +230,7 @@ Read the full [threat model](docs/THREAT_MODEL.md). Please report vulnerabilitie
 
 ## Project status
 
-HostLatch is an **experimental v0.2 public beta**. The scanner, activation manifest, quarantine bundle, and full-snapshot mode are functional and covered by cross-platform tests. A first-party [12-repository validation run](docs/VALIDATION.md) is published, but it is not a substitute for an independent adversarial benchmark. The [roadmap](docs/ROADMAP.md) defines the release bar for signed approvals, clean-worktree promotion, enforcement adapters, and broader reproducible benchmarks. The next bounded research direction is [ShadowReach](docs/SHADOWREACH_PLAN.md): reverse activation reachability from a changed file to an unchanged trusted control root.
+HostLatch is an **experimental v0.3 public beta**. The scanner, activation manifest, SARIF export, quarantine bundle, and full-snapshot mode are functional and covered by cross-platform tests. A first-party [12-repository validation run](docs/VALIDATION.md) is published, but it is not a substitute for an independent adversarial benchmark. The [roadmap](docs/ROADMAP.md) defines the release bar for signed approvals, clean-worktree promotion, enforcement adapters, and broader reproducible benchmarks. The next bounded research direction is [ShadowReach](docs/SHADOWREACH_PLAN.md): reverse activation reachability from a changed file to an unchanged trusted control root.
 
 Do not describe HostLatch as “state of the art” until those benchmarks exist.
 

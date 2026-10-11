@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HostLatch — AI Coding Agent Repository Security Scanner</title>
-  <meta name="description" content="HostLatch is an open-source, offline security scanner for AI coding-agent repository changes, with Git-delta analysis, activation graphs, and quarantine-first promotion bundles.">
+  <meta name="description" content="HostLatch is an open-source, offline security scanner for AI coding-agent repository changes, with Git-delta analysis, activation graphs, SARIF 2.1.0, and quarantine-first promotion bundles.">
   <meta name="keywords" content="AI coding agent security, Claude Code security, Codex security, Cursor security, MCP security, repository scanner, software supply chain, DevSecOps">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://murtazazoaib.com/hostlatch/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="HostLatch — Trust-handoff firewall for AI-written repositories">
-  <meta property="og:description" content="Scan AI coding-agent changes before trusted host tools load them. Offline, explainable, and open source.">
+  <meta property="og:description" content="Scan AI coding-agent changes before trusted host tools load them. Offline, explainable, open source, and SARIF-ready.">
   <meta property="og:url" content="https://murtazazoaib.com/hostlatch/">
   <meta property="og:image" content="https://murtazazoaib.com/hostlatch/assets/social-preview.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="HostLatch — AI Coding Agent Repository Security Scanner">
-  <meta name="twitter:description" content="Git-delta analysis, activation graphs, and quarantine-first promotion for coding-agent changes.">
+  <meta name="twitter:description" content="Git-delta analysis, activation graphs, SARIF code-scanning output, and quarantine-first promotion for coding-agent changes.">
   <meta name="twitter:image" content="https://murtazazoaib.com/hostlatch/assets/social-preview.png">
   <script type="application/ld+json">
   {
@@ -24,8 +24,9 @@
     "name": "HostLatch",
     "applicationCategory": "SecurityApplication",
     "operatingSystem": "Windows, macOS, Linux",
-    "softwareVersion": "0.2.0",
-    "description": "An offline security scanner for AI coding-agent repository changes, with Git-delta analysis, activation graphs, and quarantine-first promotion bundles.",
+    "softwareVersion": "0.3.0",
+    "dateModified": "2026-10-11",
+    "description": "An offline security scanner for AI coding-agent repository changes, with Git-delta analysis, activation graphs, SARIF 2.1.0, and quarantine-first promotion bundles.",
     "url": "https://murtazazoaib.com/hostlatch/",
     "codeRepository": "https://github.com/iammurtaza53/hostlatch",
     "downloadUrl": "https://github.com/iammurtaza53/hostlatch/releases",
@@ -74,7 +75,7 @@
       <div class="card"><strong>12</strong>repositories in the first-party corpus</div>
       <div class="card"><strong>2,359</strong>files inspected without executing repository code</div>
       <div class="card"><strong>21.4s</strong>total recorded scan time</div>
-      <div class="card"><strong>MIT</strong>licensed and developed in public</div>
+      <div class="card"><strong>SARIF 2.1</strong>native output for GitHub code scanning</div>
     </div>
 
     <h2>Audit the handoff, not only the agent run</h2>
@@ -82,7 +83,7 @@
 
     <h2>Try the public beta</h2>
     <pre><code># Run the immutable release directly from GitHub
-npx --yes github:iammurtaza53/hostlatch#v0.2.0 scan /path/to/repository --snapshot
+npx --yes github:iammurtaza53/hostlatch#v0.3.0 scan /path/to/repository --snapshot
 
 # Or clone it for the demo and repeated local use
 git clone https://github.com/iammurtaza53/hostlatch.git
@@ -94,7 +95,13 @@ npm run demo
 node ./bin/hostlatch.js scan /path/to/repository --base main
 
 # Audit a complete snapshot
-node ./bin/hostlatch.js scan /path/to/repository --snapshot</code></pre>
+node ./bin/hostlatch.js scan /path/to/repository --snapshot
+
+# Generate a GitHub-compatible code-scanning report
+node ./bin/hostlatch.js scan /path/to/repository --base main --sarif --output hostlatch.sarif</code></pre>
+
+    <h2>From activation path to code-scanning alert</h2>
+    <p>SARIF 2.1.0 output carries each rule, severity, evidence, remediation, and artifact → consumer → trigger → effect path into GitHub code scanning. Stable fingerprints help track findings across runs, and local filesystem paths are never included.</p>
 
     <h2>What it covers</h2>
     <div class="grid">
@@ -108,7 +115,7 @@ node ./bin/hostlatch.js scan /path/to/repository --snapshot</code></pre>
     <p>The initial corpus produced 77 rule-fit findings, including two high-severity activation patterns. These are review signals, not 77 confirmed vulnerabilities. The report publishes pinned public commits, anonymized private aggregates, performance data, privacy treatment, and limitations.</p>
     <p><a href="VALIDATION.html">Read the complete validation report</a> or inspect the <a href="validation/2026-09-30.json">machine-readable aggregate</a>.</p>
 
-    <footer>HostLatch 0.2.0 public beta · Created by <a href="https://murtazazoaib.com/">Murtaza Z.</a> · <a href="https://github.com/iammurtaza53/hostlatch/blob/main/LICENSE">MIT License</a></footer>
+    <footer>HostLatch 0.3.0 public beta · Created by <a href="https://murtazazoaib.com/">Murtaza Z.</a> · <a href="https://github.com/iammurtaza53/hostlatch/blob/main/LICENSE">MIT License</a></footer>
   </main>
 </body>
 </html>

@@ -1,6 +1,6 @@
 {
   "name": "hostlatch",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Trust-handoff firewall for AI-written repositories.",
   "type": "module",
   "bin": {
@@ -20,7 +20,7 @@
   "scripts": {
     "demo": "node scripts/demo.js",
     "test": "node --test test/*.test.js",
-    "lint": "node --check bin/hostlatch.js && node --check scripts/demo.js && node --check src/bundle.js && node --check src/cli.js && node --check src/git.js && node --check src/rules.js && node --check src/scan.js && node --check src/util.js"
+    "lint": "node --check bin/hostlatch.js && node --check scripts/demo.js && node --check src/bundle.js && node --check src/cli.js && node --check src/git.js && node --check src/rules.js && node --check src/sarif.js && node --check src/scan.js && node --check src/util.js"
   },
   "engines": {
     "node": ">=22.13.0"
@@ -38,6 +38,8 @@
     "repository-security",
     "security-scanner",
     "static-analysis",
+    "sarif",
+    "code-scanning",
     "supply-chain-security",
     "devsecops",
     "trust-handoff",
@@ -48,7 +50,7 @@
     "type": "git",
     "url": "git+https://github.com/iammurtaza53/hostlatch.git"
   },
-  "homepage": "https://github.com/iammurtaza53/hostlatch#readme",
+  "homepage": "https://murtazazoaib.com/hostlatch/",
   "bugs": {
     "url": "https://github.com/iammurtaza53/hostlatch/issues"
   },

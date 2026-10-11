@@ -242,12 +242,14 @@ Only consider “state of the art” after a versioned public benchmark, reprodu
 
 ## Launch assets after implementation
 
+> Update, 11 October 2026: SARIF 2.1.0 and the reusable GitHub Action shipped independently of ShadowReach in HostLatch 0.3. ShadowReach remains unimplemented and would be evaluated for a later release under the benchmark gates below.
+
 - a 20–30 second deterministic terminal GIF and MP4 showing the hidden path;
 - a one-command harmless demo with an execution marker that remains absent;
 - a diagram of changed leaf → unchanged root → trusted consumer → host effect;
 - benchmark JSON plus a short human report;
 - npm package with provenance and an immutable Git tag;
-- GitHub Action and SARIF only after their output contracts stabilize;
+- validate the existing GitHub Action and SARIF contracts against the ShadowReach witness model;
 - one technical launch post centered on the demonstrated blind spot, not generic AI-security language.
 
 ## Calendar and directory eligibility

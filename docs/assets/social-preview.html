@@ -24,13 +24,20 @@
     font-family: "Segoe UI", -apple-system, "Helvetica Neue", Arial, sans-serif;
     color: var(--text);
     background:
-      radial-gradient(760px 440px at 86% 5%, rgba(79, 209, 197, 0.17), transparent 64%),
-      radial-gradient(620px 420px at 3% 106%, rgba(96, 165, 250, 0.14), transparent 66%),
-      linear-gradient(rgba(159, 176, 195, 0.035) 1px, transparent 1px) 0 0 / 42px 42px,
-      linear-gradient(90deg, rgba(159, 176, 195, 0.035) 1px, transparent 1px) 0 0 / 42px 42px,
+      linear-gradient(90deg, rgba(7, 17, 31, 0.98) 0%, rgba(7, 17, 31, 0.92) 38%, rgba(7, 17, 31, 0.48) 65%, rgba(7, 17, 31, 0.08) 100%),
+      url("sarif-background.png") center / cover no-repeat,
       var(--bg);
   }
+  body::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(159, 176, 195, 0.08);
+    pointer-events: none;
+  }
   .top { display: flex; align-items: flex-start; justify-content: space-between; }
+  .top, .flow, .statement, .footer { position: relative; z-index: 1; }
+  .top > div:first-child { max-width: 760px; }
   .eyebrow {
     color: var(--cyan);
     font-size: 19px;
@@ -38,15 +45,7 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
   }
-  .mark {
-    width: 86px;
-    height: 86px;
-    border: 3px solid var(--cyan);
-    border-radius: 22px;
-    position: relative;
-    background: rgba(79, 209, 197, 0.06);
-    box-shadow: 0 0 42px rgba(79, 209, 197, 0.16);
-  }
+  .mark { display: none; }
   .mark::before {
     content: "";
     position: absolute;
@@ -68,7 +67,7 @@
   }
   h1 {
     margin-top: 12px;
-    font-size: 92px;
+    font-size: 88px;
     line-height: 0.98;
     letter-spacing: -0.035em;
     font-weight: 820;
@@ -82,7 +81,7 @@
   }
   .tagline strong { color: var(--text); font-weight: 700; }
   .flow {
-    margin-top: 36px;
+    margin-top: 30px;
     display: flex;
     align-items: center;
     gap: 11px;
@@ -93,7 +92,7 @@
     padding: 10px 15px;
     border: 1px solid var(--line);
     border-radius: 10px;
-    background: rgba(13, 28, 45, 0.92);
+    background: rgba(13, 28, 45, 0.96);
     white-space: nowrap;
   }
   .step.graph { border-color: rgba(96, 165, 250, 0.7); color: #bfdbfe; }
@@ -101,7 +100,7 @@
   .step.approve { border-color: rgba(79, 209, 197, 0.75); color: #99f6e4; }
   .arrow { color: #5f7893; font-size: 22px; }
   .statement {
-    margin-top: 36px;
+    margin-top: 32px;
     padding-left: 17px;
     border-left: 3px solid var(--amber);
     color: #d8e3ef;
@@ -124,17 +123,17 @@
 <body>
   <div class="top">
     <div>
-      <div class="eyebrow">Open source · Offline · Zero runtime dependencies</div>
+      <div class="eyebrow">New in 0.3 · SARIF 2.1 · Offline</div>
       <h1>HostLatch</h1>
-      <p class="tagline">The <strong>trust-handoff firewall</strong> for AI-written repositories.</p>
+      <p class="tagline">Explainable <strong>trust-handoff security</strong>, now ready for GitHub code scanning.</p>
     </div>
     <div class="mark" aria-hidden="true"></div>
   </div>
 
   <div class="flow">
     <span class="step">Agent change</span><span class="arrow">→</span>
-    <span class="step graph">Activation graph</span><span class="arrow">→</span>
-    <span class="step quarantine">Quarantine</span><span class="arrow">→</span>
+    <span class="step graph">HostLatch scan</span><span class="arrow">→</span>
+    <span class="step quarantine">SARIF finding</span><span class="arrow">→</span>
     <span class="step approve">Human review</span>
   </div>
 
